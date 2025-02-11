@@ -46,6 +46,9 @@ if __name__ == '__main__':
     if new_apis:
         for api in new_apis:
             log_message(f"New API detected: {api}")
+            print(f"New API detected: {api}")
         write_apis_to_csv(new_apis)
     else:
         log_message("No new APIs detected.")
+        print("No new APIs detected.")
+

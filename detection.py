@@ -22,11 +22,16 @@ def write_apis_to_csv(new_apis):
 
 def scan_apis():
     apis = set()
-    pattern = re.compile(r"@*\.\(['\"](/[^'\"]+)['\"]")
+    pattern = re.compile(r'@[\w\.]+\(["\'](/[^"\']+)["\']\)')
+
     for file in os.listdir('.'):
-        if file.endswith('.py') and file != __file__:
-            with open(file, 'r') as f:
-                apis.update(pattern.findall(f.read()))
+        if file.endswith('.py') and file != os.path.basename(__file__):
+            with open(file, 'r', encoding="utf-8") as f:
+                content = f.read()
+                matches = pattern.findall(content)
+                if matches:
+                    apis.update(matches)
+
     return apis
 
 def log_message(message):
